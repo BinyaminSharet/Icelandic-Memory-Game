@@ -25,7 +25,6 @@ public class MemoryApp extends Application {
 
 	public static final String DBG_STR = "ICEMEM";
 	private static MemoryApp app;
-	private String username;
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -34,16 +33,5 @@ public class MemoryApp extends Application {
 	
 	public static MemoryApp getApplication() {
 		return app;
-	}
-	
-	public void setCurrentUserName(String username) {
-		this.username = username;
-	}
-	
-	public String getCurrentUserName() {
-		return this.username;
-	}
-	
-
-	
+	}	
 }

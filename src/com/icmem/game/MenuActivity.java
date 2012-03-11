@@ -22,6 +22,7 @@ package com.icmem.game;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -36,6 +37,8 @@ import com.icmem.data.UpdateListener;
 
 public class MenuActivity extends Activity {
 
+	private static final String SHARED_PREF_NAME = "MemoryApp"; 
+	private static final String SHARED_PREF_USER = "username";
 	private EditText username_et;
 	
 	@Override
@@ -47,14 +50,15 @@ public class MenuActivity extends Activity {
 		b.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
-				MemoryApp app = MemoryApp.getApplication();
-				app.setCurrentUserName(username_et.getText().toString());
+				String username = username_et.getText().toString();
 				Intent intent = new Intent(MenuActivity.this, GameSelection.class);
 				intent.putExtra(getString(R.string.user_name), username_et.getText().toString());
 				startActivity(intent);
+				storeUserName(username);
 			}
 		});
 		initDefaults.execute();
+		loadUserName();
 	}
 	
 	AsyncTask<String, String, Void> initDefaults = new AsyncTask<String, String, Void>() {
@@ -93,146 +97,20 @@ public class MenuActivity extends Activity {
 		
 	};
 	
-	
-	
-	
-	
-/*
-	private void launchGame(String game) {
-		Intent i = new Intent(MenuActivity.this, BoardActivity.class);
-		String username = username_et.getText().toString();
-		i.putExtra(getString(R.string.user_name), username);
-		i.putExtra(getString(R.string.board_size), 4);
-		i.putExtra(BoardActivity.GAME_TYPE_STRING, game);
-		startActivityForResult(i, 0);
-		saveToSharedPreferences(getString(R.string.user_name), username);
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode == 1) {
-			int seconds = data.getIntExtra(getString(R.string.time_taken), 0);
-			String game_type = data.getStringExtra(getString(R.string.game_type));
-			String user_name = data.getStringExtra(getString(R.string.user_name));
-			if (updateBestResults(user_name, game_type, seconds)) {
-				StringBuilder message = new StringBuilder(200);
-				message.append("You've set a new high score for the ");
-				message.append(game_type);
-				message.append(" game. Your new best time is ");
-				message.append(Util.getTimeRepresentation(seconds));				
-				Toast.makeText(this, message.toString(), Toast.LENGTH_LONG).show();
-			}
-		}
-	}
-	
-	private boolean updateBestResults(String user_name, String game_type, int seconds) {
-		SharedPreferences pref = this.getSharedPreferences(BestResults.BEST_RESULTS_SHARED_PREFERENCES, MODE_PRIVATE);
-		int prev_seconds = pref.getInt(game_type, 1500);
-		if (seconds < prev_seconds) {
-			Log.d("Binyamin", "Updating high scores " + game_type + "/" + seconds + "/" + user_name);
-			SharedPreferences.Editor editor = pref.edit();
-			editor.putInt(game_type, seconds);
-			editor.putString(game_type + "user", user_name);
-			editor.commit();
-			return true;
-		}
-		return false;
-	}
-
-	private void saveToSharedPreferences(String key, String value) {
-		SharedPreferences pref = this.getSharedPreferences(packageName, MODE_PRIVATE);
+	private void storeUserName(String username) {
+		SharedPreferences pref = this.getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
 		SharedPreferences.Editor editor = pref.edit();
-		editor.putString(key, value);
+		editor.putString(SHARED_PREF_USER, username);
 		editor.commit();
 	}
-
-	private void setUserName() {
-		SharedPreferences pref = this.getSharedPreferences(packageName,
-				MODE_PRIVATE);
-		String username = pref.getString(getString(R.string.user_name), null);
+	
+	private void loadUserName() {
+		SharedPreferences pref = this.getSharedPreferences(SHARED_PREF_NAME, MODE_PRIVATE);
+		String username = pref.getString(SHARED_PREF_USER, null);
 		if (username != null) {
 			username_et.setText(username);
 		}
 	}
-
-	private void initAllMaps() {
-		SharedPreferences pref = this.getSharedPreferences(packageName,
-				MODE_PRIVATE);
-//		if (!pref.getBoolean("Maps Initiated", false)) {
-			new DataInitiator().execute("");
-	//	}
-	}
-
-	private class DataInitiator extends AsyncTask<String, Integer, Void> {
-		private ProgressDialog dialog = new ProgressDialog(MenuActivity.this);
-		int lines = 0;
-
-		@Override
-		protected void onPostExecute(Void result) {
-			super.onPostExecute(result);
-			dialog.dismiss();
-		}
-
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			dialog.setTitle("Updating Game Pairs");
-			dialog.show();
-		}
-
-		@Override
-		protected void onProgressUpdate(Integer... values) {
-			super.onProgressUpdate(values);
-			if (values[0] < lines) {
-				dialog.setMessage("Saving pair set " + values[0] + " out of "
-						+ lines);
-			} else {
-				dialog.setMessage("Saving updates");
-			}
-		}
-
-		@Override
-		protected Void doInBackground(String... params) {
-			try {
-				lines = Util.getNumberOfLines(getAssets().open("Pairs.txt"), true);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			if (lines <= 0) {
-				return null;
-			}
-			int i = 1;
-			try {
-				BufferedReader br = new BufferedReader(new InputStreamReader(
-						getAssets().open("Pairs.txt")));
-				String line;
-				SharedPreferences pref = getSharedPreferences(packageName,
-						MODE_PRIVATE);
-				SharedPreferences.Editor editor = pref.edit();
-				while ((line = br.readLine()) != null) {
-					publishProgress(i++);
-					String[] lineParts = line.split("=");
-					editor.putString(lineParts[0], lineParts[1]);
-				}
-				publishProgress(i++);
-				editor.putBoolean("Maps Initiated", true);
-				editor.commit();
-				br.close();
-
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			return null;
-		}
-
-	}
-
-	private View.OnClickListener launcher = new View.OnClickListener() {
-		public void onClick(View v) {
-			launchGame(buttons.get(v.getId()));
-		}
-	};
-	*/
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

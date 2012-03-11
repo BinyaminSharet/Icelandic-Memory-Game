@@ -43,12 +43,9 @@ public class DataManager {
 	final public static Integer HIGH_SCORE_USER_ID = 2;
 	final public static Integer HIGH_SCORE_TIME_ID = 3;
 
-
 	final private Context context;
 	final private static DataManager instance = new DataManager(MemoryApp.getApplication()); 
 	private GameDataHandler dbHandler = null;
-	
-	
 	
 	private DataManager(Context context) {
 		this.context = context;
