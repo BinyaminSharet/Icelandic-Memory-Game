@@ -1,0 +1,8 @@
+<html>
+<head></head>
+<body>
+<h2><font class="Apple-style-span" color="#ff0000"><span class="hps">About This App</span></font></h2>
+<p>This application was created in order to teach myself some Icelandic. Hope you&#39;ll find it enjoying as well.</p>
+<p>Regards,<br/>Binyamin</p>
+</body>
+</html>

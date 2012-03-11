@@ -1,0 +1,8 @@
+<html>
+<head></head>
+<body>
+<h2><font class="Apple-style-span" color="#ff0000"><span class="hps">Um</span>&nbsp;<span class="hps">&thorn;etta forrit</span></font></h2>
+<p><font class="Apple-style-span" size="3"><span class="Apple-style-span" style="font-weight: normal;"><span class="hps">&THORN;etta forrit</span>&nbsp;<span class="hps">var b&uacute;in</span>&nbsp;<span class="hps">til a&eth;</span>&nbsp;<span class="hps">kenna</span>&nbsp;<span class="hps">m&eacute;r</span>&nbsp;<span class="hps">nokkur</span>&nbsp;<span class="hps">&iacute;slensku.</span>&nbsp;<span class="hps">Vona a&eth; &thorn;&uacute;</span>&nbsp;<span class="hps">munt</span>&nbsp;<span class="hps">finna &thorn;a&eth;</span><span class="hps">nj&oacute;ta</span>&nbsp;<span class="hps">eins og heilbrig&eth;ur.</span></span></font></p>
+<p>kve&eth;jur,<br/>Binyamin</p>
+</body>
+</html>

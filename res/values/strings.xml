@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Icelandic Memory Game</string>
+    <string name="menu_title">Learn Icelandic Memory Game</string>
+    <string name="user_name">USER_NAME</string>
+    <string name="user_name_hint">Your name</string>
+    <string name="board_size">BOARD_SIZE</string>
+    <string name="time_taken">&quot;TIME_IN_MILLIES&quot;</string>
+    <string name="game_type">Game type</string>
+    <string name="game_selection_button_text">Choose a Game</string>
+</resources>
