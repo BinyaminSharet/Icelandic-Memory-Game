@@ -22,14 +22,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.URL;
+import java.net.URI;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -115,12 +118,15 @@ public class DataManager {
 		JSONObject jUpdate = null;
 		int retries = 0;
 		while (nextChunkNumber != NOT_EXIST) {
+			Log.d(MemoryApp.DBG_STR, "Looking for chunk number " + nextChunkNumber);
 			++retries;
 			try {
 				listener.onUpdate("Getting update " + nextChunkNumber);
 				sUpdate = getChunk(nextChunkNumber);
+				Log.d(MemoryApp.DBG_STR, "Got chunk");
 				jUpdate = new JSONObject(sUpdate);
 				status = updateGames(jUpdate.getJSONArray(GameProtocol.J_ID_GAMES_ARRAY));
+				Log.d(MemoryApp.DBG_STR, "Updated object");
 				if (status != Status.STATUS_OK) {
 					listener.onUpdate("Failed to parse update." + status.name());
 				}
@@ -129,9 +135,10 @@ public class DataManager {
 				retries = 0;
 			}
 			catch(JSONException e) {
-				// failed to parse json object
+				Log.d(MemoryApp.DBG_STR, "JSONException " + e);
 			}
 			catch(IOException e) {
+				Log.d(MemoryApp.DBG_STR, "IOException " + e);
 				// we got a problem retrieving the data
 			}
 			if (retries == MAX_RETRIES)
@@ -142,18 +149,15 @@ public class DataManager {
 	
 	private String getChunk(int cNumber) throws IOException {
 		String res = null;
-		OutputStreamWriter out = null;
 		BufferedReader in = null;
-		URLConnection conn = null;
 		try {
-			String params = URLEncoder.encode("chunk", "UTF-8") + '=' + URLEncoder.encode("" + cNumber, "UTF-8");
-			URL serverUrl = new URL(context.getString(R.string.server_base_url) + context.getString(R.string.server_update_api_page));
-			conn = serverUrl.openConnection();
-			conn.setDoOutput(true);
-			out = new OutputStreamWriter(conn.getOutputStream());
-			out.write(params);
-			out.flush();
-			in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			HttpClient client = new DefaultHttpClient();
+			HttpGet request = new HttpGet();
+			String urlStr = context.getString(R.string.server_base_url) + context.getString(R.string.server_update_api_page);
+			urlStr += "?chunk=" + cNumber;
+			request.setURI(new URI(urlStr));
+			HttpResponse response = client.execute(request);
+			in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 			StringBuilder sb = new StringBuilder();
 			while((res = in.readLine()) != null) {
 				sb.append(res);
@@ -164,14 +168,6 @@ public class DataManager {
 			throw new IOException(e); // normalize all exceptions 
 		}
 		finally {
-			if (out != null) {
-				try {
-					out.close();
-				}
-				catch(IOException ex) {
-					ex.printStackTrace();
-				}
-			}
 			if (in != null) {
 				try {
 					in.close();

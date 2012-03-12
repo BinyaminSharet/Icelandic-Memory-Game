@@ -25,6 +25,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -138,6 +139,7 @@ public class MenuActivity extends Activity {
 	    case R.id.menu_item_update:
 	    {
 	    	updateFromServer();
+	    	return true;
 	    }
 	    default:
 	        return super.onOptionsItemSelected(item);
@@ -149,6 +151,7 @@ public class MenuActivity extends Activity {
 			ProgressDialog dialog;
 			@Override
 			protected Void doInBackground(Void... arg0) {
+				Log.d(MemoryApp.DBG_STR, "Starting update");
 				DataManager.getDataManager().updateGames(new UpdateListener(){
 					@Override
 					public void onUpdate(String message) {
@@ -168,6 +171,7 @@ public class MenuActivity extends Activity {
 			protected void onPreExecute() {
 				dialog = new ProgressDialog(MenuActivity.this);
 				dialog.setTitle("Updating from Server");
+				dialog.show();
 				super.onPreExecute();
 			}
 

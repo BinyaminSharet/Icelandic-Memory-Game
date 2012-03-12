@@ -10,6 +10,6 @@
     <string name="game_selection_button_text">Choose a Game</string>
     
     
-    <string name="server_base_url">www.tiroshboaz.com/sharet/</string>
-    <string name="server_update_api_page">UpdateApi.php</string>
+    <string name="server_base_url">http://tiroshboaz.com</string>
+    <string name="server_update_api_page">/sharet/UpdateApi.php</string>
 </resources>
