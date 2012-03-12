@@ -21,6 +21,10 @@ package com.icmem.data;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -34,6 +38,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.icmem.game.MemoryApp;
+import com.icmem.game.R;
 
 public class DataManager {
 
@@ -42,6 +47,8 @@ public class DataManager {
 	final public static Integer HIGH_SCORE_TITLE_ID = 1;
 	final public static Integer HIGH_SCORE_USER_ID = 2;
 	final public static Integer HIGH_SCORE_TIME_ID = 3;
+	
+	final private static int MAX_RETRIES = 3;
 
 	final private Context context;
 	final private static DataManager instance = new DataManager(MemoryApp.getApplication()); 
@@ -100,48 +107,98 @@ public class DataManager {
 			Log.e(MemoryApp.DBG_STR, "Damn JSON exception" + e);
 		}			
 	}
-	/*
+
 	public void updateGames(UpdateListener listener) {
 		Status status;
 		String sUpdate = "";
 		int nextChunkNumber = 0;
 		JSONObject jUpdate = null;
-		while (nextChunkNumber > -1) {
-			listener.onUpdate("Getting update " + nextChunkNumber);
-			sUpdate = getChunk(nextChunkNumber);
+		int retries = 0;
+		while (nextChunkNumber != NOT_EXIST) {
+			++retries;
 			try {
+				listener.onUpdate("Getting update " + nextChunkNumber);
+				sUpdate = getChunk(nextChunkNumber);
 				jUpdate = new JSONObject(sUpdate);
-				status = updateGames(jUpdate.getJSONArray(J_ID_GAMES_ARRAY));
+				status = updateGames(jUpdate.getJSONArray(GameProtocol.J_ID_GAMES_ARRAY));
+				if (status != Status.STATUS_OK) {
+					listener.onUpdate("Failed to parse update." + status.name());
+				}
 				listener.onUpdate("Update " + nextChunkNumber + " processed");
-				nextChunkNumber = getNextChunkNumber(jUpdate); 
+				nextChunkNumber = getNextChunkNumber(jUpdate);
+				retries = 0;
 			}
 			catch(JSONException e) {
 				// failed to parse json object
-			}			
+			}
+			catch(IOException e) {
+				// we got a problem retrieving the data
+			}
+			if (retries == MAX_RETRIES)
+				break;
 		}
 		listener.onUpdate("Update Completed");
 	}
 	
-	private String getChunk(int cNumber) {
-		return "";
-	}
-	
-	private int getNextChunkNumber(JSONObject jUpdate) {
-		int current;
-		int total;
+	private String getChunk(int cNumber) throws IOException {
+		String res = null;
+		OutputStreamWriter out = null;
+		BufferedReader in = null;
+		URLConnection conn = null;
 		try {
-			current = jUpdate.getInt(J_ID_CHUNK_NUMBER);
-			total = jUpdate.getInt(J_ID_CHUNK_TOTAL);
+			String params = URLEncoder.encode("chunk", "UTF-8") + '=' + URLEncoder.encode("" + cNumber, "UTF-8");
+			URL serverUrl = new URL(context.getString(R.string.server_base_url) + context.getString(R.string.server_update_api_page));
+			conn = serverUrl.openConnection();
+			conn.setDoOutput(true);
+			out = new OutputStreamWriter(conn.getOutputStream());
+			out.write(params);
+			out.flush();
+			in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			StringBuilder sb = new StringBuilder();
+			while((res = in.readLine()) != null) {
+				sb.append(res);
+			}
+			res = sb.toString();
+		}
+		catch(Exception e) {
+			throw new IOException(e); // normalize all exceptions 
+		}
+		finally {
+			if (out != null) {
+				try {
+					out.close();
+				}
+				catch(IOException ex) {
+					ex.printStackTrace();
+				}
+			}
+			if (in != null) {
+				try {
+					in.close();
+				}
+				catch(IOException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
+		return res;
+	}
+
+	private int getNextChunkNumber(JSONObject jUpdate) throws JSONException{
+		int current, total;
+		if (hasNextChunkInfo(jUpdate)) {
+			current = jUpdate.getInt(GameProtocol.J_ID_CHUNK_NUMBER);
+			total = jUpdate.getInt(GameProtocol.J_ID_CHUNK_TOTAL);
 			if (current < total) {
 				return current + 1;
 			}
 		}
-		catch(JSONException e) {
-			// This is an empty exception because it merges with the default result (-1)
-		}
-		return -1;
+		return NOT_EXIST;
 	}
-	*/
+	
+	private boolean hasNextChunkInfo(JSONObject jUpdate) {
+		return jUpdate.has(GameProtocol.J_ID_CHUNK_NUMBER) && jUpdate.has(GameProtocol.J_ID_CHUNK_TOTAL);
+	}
 	
 	private int getCurrentGameVersion(int id) {
 		return dbHandler.getGameVersion(id);
@@ -156,7 +213,6 @@ public class DataManager {
 		for (int i = 0; i < games_arr.length(); ++i) {
 			String gOp, gTitle, gDesc;
 			int gId, gVersion;
-			//JSONArray gPairs;
 			JSONObject gPairs;
 			JSONObject game = games_arr.getJSONObject(i);
 			Map<String, String> mPairs;
@@ -206,7 +262,7 @@ public class DataManager {
 	}
 	
 	public Map<Integer, List<?>>getAllHighScores() {
-		return dbHandler.getAllHighScores();
+		return dbHandler.getAllGamesBestTimes();
 	}
 
 	enum Status {

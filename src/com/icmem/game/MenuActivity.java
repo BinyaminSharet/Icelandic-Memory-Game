@@ -135,8 +135,49 @@ public class MenuActivity extends Activity {
 	    	startActivity(intent);
 	    	return true;
 	    }
+	    case R.id.menu_item_update:
+	    {
+	    	updateFromServer();
+	    }
 	    default:
 	        return super.onOptionsItemSelected(item);
 	    }
+	}
+	
+	private void updateFromServer() {
+		AsyncTask<Void, String, Void> updateTask = new AsyncTask<Void, String, Void>(){
+			ProgressDialog dialog;
+			@Override
+			protected Void doInBackground(Void... arg0) {
+				DataManager.getDataManager().updateGames(new UpdateListener(){
+					@Override
+					public void onUpdate(String message) {
+						publishProgress(message);
+					}
+				});
+				return null;
+			}
+
+			@Override
+			protected void onPostExecute(Void result) {
+				dialog.dismiss();
+				super.onPostExecute(result);
+			}
+
+			@Override
+			protected void onPreExecute() {
+				dialog = new ProgressDialog(MenuActivity.this);
+				dialog.setTitle("Updating from Server");
+				super.onPreExecute();
+			}
+
+			@Override
+			protected void onProgressUpdate(String... values) {
+				dialog.setMessage(values[0]);
+				super.onProgressUpdate(values);
+			}
+			
+		};
+		updateTask.execute();
 	}
 }

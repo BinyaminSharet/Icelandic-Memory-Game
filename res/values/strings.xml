@@ -8,4 +8,8 @@
     <string name="time_taken">&quot;TIME_IN_MILLIES&quot;</string>
     <string name="game_type">Game type</string>
     <string name="game_selection_button_text">Choose a Game</string>
+    
+    
+    <string name="server_base_url">www.tiroshboaz.com/sharet/</string>
+    <string name="server_update_api_page">UpdateApi.php</string>
 </resources>

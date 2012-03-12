@@ -236,7 +236,7 @@ public class GameDataHandler extends SQLiteOpenHelper {
 		db.close();
 	}
 	
-	public Map<Integer, List<?>> getAllHighScores() {
+	public Map<Integer, List<?>> getAllGamesBestTimes() {
 		int count = 0;
 		List<Integer> lTime = new ArrayList<Integer>();
 		List<String> lUser = new ArrayList<String>();
