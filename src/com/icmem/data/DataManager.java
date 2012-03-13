@@ -21,9 +21,8 @@ package com.icmem.data;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.net.URI;
-import java.net.URLConnection;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -156,6 +155,7 @@ public class DataManager {
 			String urlStr = context.getString(R.string.server_base_url) + context.getString(R.string.server_update_api_page);
 			urlStr += "?chunk=" + cNumber;
 			request.setURI(new URI(urlStr));
+			Log.d(MemoryApp.DBG_STR, "Requesting chunk: " + urlStr);
 			HttpResponse response = client.execute(request);
 			in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
 			StringBuilder sb = new StringBuilder();
@@ -164,8 +164,11 @@ public class DataManager {
 			}
 			res = sb.toString();
 		}
-		catch(Exception e) {
+		catch(IOException e) {
 			throw new IOException(e); // normalize all exceptions 
+		}
+		catch(URISyntaxException e) {
+			throw new IOException(e);
 		}
 		finally {
 			if (in != null) {
@@ -226,6 +229,7 @@ public class DataManager {
 				gPairs = game.getJSONObject(GameProtocol.J_ID_GAME_PAIRS);
 				mPairs = new HashMap<String, String>();
 				
+				// Is there a better way to specify the iterator generic type in this case?
 				Iterator<?> it = gPairs.keys();
 				while(it.hasNext()) {
 					String key = (String)it.next();
@@ -240,7 +244,7 @@ public class DataManager {
 	}
 	
 	public Map<String, String> getWordsForGame(int gId) {
-		return dbHandler.getWordsForGame(gId);
+		return dbHandler.getPairs(gId);
 	}
 	
 	public boolean setNewScore(int gId, int time, String name) {

@@ -65,12 +65,7 @@ public class MenuActivity extends Activity {
 	AsyncTask<String, String, Void> initDefaults = new AsyncTask<String, String, Void>() {
 
 		ProgressDialog pd;
-		@Override
-		protected void onPostExecute(Void result) {
-			pd.dismiss();
-			super.onPostExecute(result);
-		}
-
+		
 		@Override
 		protected void onPreExecute() {
 			pd = new ProgressDialog(MenuActivity.this);
@@ -78,13 +73,7 @@ public class MenuActivity extends Activity {
 			pd.show();
 			super.onPreExecute();
 		}
-
-		@Override
-		protected void onProgressUpdate(String... values) {
-			pd.setMessage(values[0]);
-			super.onProgressUpdate(values);
-		}
-
+		
 		@Override
 		protected Void doInBackground(String... arg0) {
 			DataManager.getDataManager().setDefaultGames(new UpdateListener(){
@@ -94,6 +83,18 @@ public class MenuActivity extends Activity {
 				}
 			});
 			return null;
+		}
+
+		@Override
+		protected void onProgressUpdate(String... values) {
+			pd.setMessage(values[0]);
+			super.onProgressUpdate(values);
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			pd.dismiss();
+			super.onPostExecute(result);
 		}
 		
 	};
@@ -122,25 +123,20 @@ public class MenuActivity extends Activity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent;
 	    // Handle item selection
 	    switch (item.getItemId()) {
 	    case R.id.menu_item_high_scores:
-	    {
-	    	Intent intent = new Intent(this, BestResults.class);
+	    	intent = new Intent(this, BestResults.class);
 	    	startActivity(intent);
 	        return true;
-	    }
 	    case R.id.menu_item_about:
-	    {
-	    	Intent intent = new Intent(this, AboutActivity.class);
+	    	intent = new Intent(this, AboutActivity.class);
 	    	startActivity(intent);
 	    	return true;
-	    }
 	    case R.id.menu_item_update:
-	    {
 	    	updateFromServer();
 	    	return true;
-	    }
 	    default:
 	        return super.onOptionsItemSelected(item);
 	    }
@@ -149,6 +145,15 @@ public class MenuActivity extends Activity {
 	private void updateFromServer() {
 		AsyncTask<Void, String, Void> updateTask = new AsyncTask<Void, String, Void>(){
 			ProgressDialog dialog;
+			
+			@Override
+			protected void onPreExecute() {
+				dialog = new ProgressDialog(MenuActivity.this);
+				dialog.setTitle("Updating from Server");
+				dialog.show();
+				super.onPreExecute();
+			}
+			
 			@Override
 			protected Void doInBackground(Void... arg0) {
 				Log.d(MemoryApp.DBG_STR, "Starting update");
@@ -160,25 +165,17 @@ public class MenuActivity extends Activity {
 				});
 				return null;
 			}
+			
+			@Override
+			protected void onProgressUpdate(String... values) {
+				dialog.setMessage(values[0]);
+				super.onProgressUpdate(values);
+			}
 
 			@Override
 			protected void onPostExecute(Void result) {
 				dialog.dismiss();
 				super.onPostExecute(result);
-			}
-
-			@Override
-			protected void onPreExecute() {
-				dialog = new ProgressDialog(MenuActivity.this);
-				dialog.setTitle("Updating from Server");
-				dialog.show();
-				super.onPreExecute();
-			}
-
-			@Override
-			protected void onProgressUpdate(String... values) {
-				dialog.setMessage(values[0]);
-				super.onProgressUpdate(values);
 			}
 			
 		};

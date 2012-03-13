@@ -115,6 +115,7 @@ public class GameDataHandler extends SQLiteOpenHelper {
 	public void removeGame(int gId) {
 		SQLiteDatabase db = getWritableDatabase();
 		db.delete(GAME_TABLE, GAME_COL_ID + " = ?", new String[] { String.valueOf(gId)});
+		db.execSQL("DROP TABLE IF EXISTS " + (BASE_PAIR_TABLE + gId));
 		db.close();
 	}
 	
@@ -137,16 +138,13 @@ public class GameDataHandler extends SQLiteOpenHelper {
 	public void setGamePairs(int gId, Map<String, String> mPairs) {
 		String pairTable = BASE_PAIR_TABLE + gId;
 		SQLiteDatabase db = getWritableDatabase();
-		// delete the table
-		db.execSQL("DROP TABLE IF EXISTS " + (pairTable));
-		// re-create the table
+		db.execSQL("DROP TABLE IF EXISTS " + pairTable);
 		String createPairTable = 	"CREATE TABLE " + pairTable +
 				"(" + 
 				PAIR_COL_FIRST + " TEXT, " +
 				PAIR_COL_SECOND + " TEXT " +
 				")";
 		db.execSQL(createPairTable);
-		// insert pairs TBD
 		ContentValues values = new ContentValues();
 		for(Map.Entry<String, String> pair : mPairs.entrySet()) {
 			values.clear();
@@ -157,7 +155,7 @@ public class GameDataHandler extends SQLiteOpenHelper {
 		db.close();
 	}
 	
-	public Map<String, String> getWordsForGame(int gId) {
+	public Map<String, String> getPairs(int gId) {
 		String pairTable = BASE_PAIR_TABLE + gId;
 		SQLiteDatabase db = getReadableDatabase();
 		Map<String, String> mPairs = new HashMap<String, String>();
@@ -180,8 +178,6 @@ public class GameDataHandler extends SQLiteOpenHelper {
 	public Map<Integer, String> getGameMap() {
 		SQLiteDatabase db = getWritableDatabase();
 		Map<Integer, String> resMap = null;
-		//String query = "SELECT  * FROM " + GAME_TABLE;
-		//Cursor c = db.rawQuery(query, null);
 		Cursor c = db.query(GAME_TABLE, new String[]{GAME_COL_ID, GAME_COL_TITLE}, null, null, null, null, null);
 		if (c != null) {
 			if (c.getCount() > 0) {
