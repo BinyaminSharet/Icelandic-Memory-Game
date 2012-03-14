@@ -135,10 +135,10 @@ public class DataManager {
 			}
 			catch(JSONException e) {
 				Log.d(MemoryApp.DBG_STR, "JSONException " + e);
-			}
-			catch(IOException e) {
+			} catch (IOException e) {
 				Log.d(MemoryApp.DBG_STR, "IOException " + e);
-				// we got a problem retrieving the data
+			} catch (URISyntaxException e) {
+				Log.d(MemoryApp.DBG_STR, "URISyntaxException " + e);
 			}
 			if (retries == MAX_RETRIES)
 				break;
@@ -146,7 +146,7 @@ public class DataManager {
 		listener.onUpdate("Update Completed");
 	}
 	
-	private String getChunk(int cNumber) throws IOException {
+	private String getChunk(int cNumber) throws IOException, URISyntaxException {
 		String res = null;
 		BufferedReader in = null;
 		try {
@@ -163,12 +163,6 @@ public class DataManager {
 				sb.append(res);
 			}
 			res = sb.toString();
-		}
-		catch(IOException e) {
-			throw new IOException(e); // normalize all exceptions 
-		}
-		catch(URISyntaxException e) {
-			throw new IOException(e);
 		}
 		finally {
 			if (in != null) {
