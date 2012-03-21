@@ -78,13 +78,11 @@ public class BoardGridAdapter extends BaseAdapter {
 		}
 
 		Collections.shuffle(buttons);
-
-
 	}
 
 	@Override
 	public int getCount() {
-		return buttons.size();
+		return buttons == null ? 0 : buttons.size();
 	}
 
 	@Override

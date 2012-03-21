@@ -41,9 +41,10 @@ public class GameSelection extends ListActivity {
 		super.onCreate(savedInstanceState);
 		DataManager dm = DataManager.getDataManager();
 		Map<Integer, String> mGames = dm.getGameMap();
-		final String[] titles = new String[mGames.keySet().size()];
-		final Integer[] ids = new Integer[mGames.keySet().size()];
-		final String username = getIntent().getExtras().getString(getString(R.string.user_name));
+		final int mapSize = mGames.size();
+		final String[] titles = new String[mapSize];
+		final Integer[] ids = new Integer[mapSize];
+		final String username = getIntent().getExtras().getString(BoardActivity.USER_NAME_ID);
 		
 		int i = 0;
 		for (Map.Entry<Integer, String> entry : mGames.entrySet()) {
@@ -60,7 +61,7 @@ public class GameSelection extends ListActivity {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent intent = new Intent(GameSelection.this, BoardActivity.class);
 				intent.putExtra(BoardActivity.BOARD_ID_GAME_ID, ids[position]);
-				intent.putExtra(getString(R.string.user_name), username);
+				intent.putExtra(BoardActivity.USER_NAME_ID, username);
 				startActivityForResult(intent, 0);
 			}
 		});
@@ -72,7 +73,7 @@ public class GameSelection extends ListActivity {
 			Bundle data = retIntent.getExtras();
 			final int time = data.getInt(BoardActivity.BOARD_COMPLETION_TIME);
 			final int gId = data.getInt(BoardActivity.BOARD_ID_GAME_ID);
-			final String user = data.getString(getString(R.string.user_name));
+			final String user = data.getString(BoardActivity.USER_NAME_ID);
 			if (DataManager.getDataManager().setNewScore(gId, time, user)) {
 				String text = "Congrats, you've set a new highscore: " +
 						Util.getTimeRepresentation(time);

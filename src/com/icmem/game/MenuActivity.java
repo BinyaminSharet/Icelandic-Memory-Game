@@ -53,7 +53,7 @@ public class MenuActivity extends Activity {
 			public void onClick(View arg0) {
 				String username = username_et.getText().toString();
 				Intent intent = new Intent(MenuActivity.this, GameSelection.class);
-				intent.putExtra(getString(R.string.user_name), username_et.getText().toString());
+				intent.putExtra(BoardActivity.USER_NAME_ID, username_et.getText().toString());
 				startActivity(intent);
 				storeUserName(username);
 			}

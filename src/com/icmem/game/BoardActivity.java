@@ -34,26 +34,34 @@ public class BoardActivity extends Activity {
 	public static final String GAME_NUMBERS_WORDS = "GAME_NUMERS_WORDS";
 	public static final String BOARD_COMPLETION_TIME = "completion time";
 	public static final String BOARD_ID_GAME_ID = "game id";
+	public static final String USER_NAME_ID = "user name";
 	public static final int CODE_FINISHED_WITH_TIME = 1;
-	private int seconds = 0;
-	private int game_type;
+	private int seconds = -1;
+	private int game_id;
 	private String username;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.board_layout);
-		setTitle();
+		setGreetingTitle();
 
 		final GridView gv = (GridView) findViewById(R.id.board_grid_gv);
 		final BoardGridAdapter adapter = new BoardGridAdapter(this);
-		game_type = getIntent().getExtras().getInt(BOARD_ID_GAME_ID);
+		game_id = getIntent().getExtras().getInt(BOARD_ID_GAME_ID);
 		new AsyncTask<Void, Void, Void>() {
-
 			Toast t;
+
+			@Override
+			protected void onPreExecute() {
+				super.onPreExecute();
+				t = Toast.makeText(BoardActivity.this, "Loading Board...", Toast.LENGTH_LONG);
+				t.show();
+			}
+
 			@Override
 			protected Void doInBackground(Void... arg0) {
-				adapter.init(finishHandler, game_type);
+				adapter.init(finishHandler, game_id);
 				return null;
 			}
 
@@ -64,20 +72,11 @@ public class BoardActivity extends Activity {
 				gv.setAdapter(adapter);
 				activateTimer();
 			}
-
-			@Override
-			protected void onPreExecute() {
-				super.onPreExecute();
-				t = Toast.makeText(BoardActivity.this, "Loading Board...", Toast.LENGTH_LONG);
-				t.show();
-			}
-
-		}.execute((Void[]) null);
+		}.execute();
 	}
 
-	private void setTitle() {
-		username = getIntent().getStringExtra(
-				this.getString(R.string.user_name));
+	private void setGreetingTitle() {
+		username = getIntent().getStringExtra(BoardActivity.USER_NAME_ID);
 		if (username.equals("")) {
 			username = "guest";
 		}
@@ -91,8 +90,8 @@ public class BoardActivity extends Activity {
 			timerHandler.removeCallbacks(mUpdateTimeTask);
 			Intent i = new Intent();
 			i.putExtra(BoardActivity.BOARD_COMPLETION_TIME, seconds);
-			i.putExtra(BoardActivity.BOARD_ID_GAME_ID, game_type);
-			i.putExtra(getString(R.string.user_name), username);
+			i.putExtra(BoardActivity.BOARD_ID_GAME_ID, game_id);
+			i.putExtra(BoardActivity.USER_NAME_ID, username);
 			BoardActivity.this.setResult(CODE_FINISHED_WITH_TIME, i);
 			finish();
 		}
@@ -105,16 +104,11 @@ public class BoardActivity extends Activity {
 	private void activateTimer() {
 		mUpdateTimeTask = new Runnable() {
 			public void run() {
+				seconds++;
 				int minutes = seconds / 60;
 				int _seconds = seconds % 60;
 
-				if (_seconds < 10) {
-					setTitle("" + minutes + ":0" + _seconds);
-				} else {
-					setTitle("" + minutes + ":" + _seconds);
-				}
-
-				seconds++;
+				setTitle(String.format("%d:%02d", minutes, _seconds));
 				timerHandler.postDelayed(this, 1000);
 			}
 		};
