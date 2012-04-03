@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Icelandic Memory Game</string>
+    
+    <string name="label_default">Icelandic Memory Game</string>
+    <string name="label_best_results">High Scores</string>
+    <string name="label_about">About the Game</string>
+    <string name="label_game_selection">Select a Game</string>
+    
     <string name="menu_title">Learn Icelandic Memory Game</string>
     <string name="user_name">USER_NAME</string>
     <string name="user_name_hint">Your name</string>

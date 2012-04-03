@@ -234,7 +234,7 @@ public class DataManager {
 			}
 			
 		}
-		return Status.STATUS_ERROR_MISSING_MANDATORY_FIELD;
+		return Status.STATUS_OK;
 	}
 	
 	public Map<String, String> getWordsForGame(int gId) {

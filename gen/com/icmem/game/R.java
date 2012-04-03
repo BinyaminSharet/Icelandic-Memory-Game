@@ -41,14 +41,18 @@ public final class R {
     }
     public static final class string {
         public static final int app_name=0x7f040000;
-        public static final int board_size=0x7f040004;
-        public static final int game_selection_button_text=0x7f040007;
-        public static final int game_type=0x7f040006;
-        public static final int menu_title=0x7f040001;
-        public static final int server_base_url=0x7f040008;
-        public static final int server_update_api_page=0x7f040009;
-        public static final int time_taken=0x7f040005;
-        public static final int user_name=0x7f040002;
-        public static final int user_name_hint=0x7f040003;
+        public static final int board_size=0x7f040008;
+        public static final int game_selection_button_text=0x7f04000b;
+        public static final int game_type=0x7f04000a;
+        public static final int label_about=0x7f040003;
+        public static final int label_best_results=0x7f040002;
+        public static final int label_default=0x7f040001;
+        public static final int label_game_selection=0x7f040004;
+        public static final int menu_title=0x7f040005;
+        public static final int server_base_url=0x7f04000c;
+        public static final int server_update_api_page=0x7f04000d;
+        public static final int time_taken=0x7f040009;
+        public static final int user_name=0x7f040006;
+        public static final int user_name_hint=0x7f040007;
     }
 }
