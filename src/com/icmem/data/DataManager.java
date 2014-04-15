@@ -213,9 +213,9 @@ public class DataManager {
 			if (gVersion > getCurrentGameVersion(gId)) {
 				gTitle = game.getString(GameProtocol.J_ID_GAME_TITLE);
 				gDesc = game.has(GameProtocol.J_ID_GAME_DESC) ? game.getString(GameProtocol.J_ID_GAME_DESC) : null;  
-				gOp = game.has(GameProtocol.J_ID_GAME_OPERATION) ? game.getString(GameProtocol.J_ID_GAME_OPERATION) : "update";
+				gOp = game.has(GameProtocol.J_ID_GAME_ACTION) ? game.getString(GameProtocol.J_ID_GAME_ACTION) : GameProtocol.ACTION_UPDATE;
 				// if operation is delete - no need to read pairs, just remove the old pairs
-				if (GameProtocol.OPERATION_DELETE.equalsIgnoreCase(gOp)) {
+				if (GameProtocol.ACTION_DELETE.equalsIgnoreCase(gOp)) {
 					dbHandler.removeGame(gId);
 					continue;
 				}

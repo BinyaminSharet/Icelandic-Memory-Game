@@ -3,33 +3,33 @@
 	[
 		{
 			"id" : 1,
-			"version" : 1,
+			"version" : 2,
 			"action" : "new",
 			"title" : "English Numbers",
 			"description" : "Match between English and Icelandic numbers",
 			"pairs" : {
 				"Null":"Zero","Einn":"One","Tveir":"Two","\u00DEr\u00EDr":"Three","Fj\u00F3rir":"Four","Fimm":"Five",
 				"Sex":"Six","Sj\u00F6":"Seven","\u00C1tta":"Eight","N\u00EDu":"Nine","T\u00EDu":"Ten",
-				"Ellefu":"Eleven","T\u00F3lf":"Twelve","\u00DEr\u00E9tt\u00C1n":"Thirteen","Fj\u00F3rt\u00C1n":"Fourteen","Fimmt\u00C1n":"Fifteen",
-				"Sext\u00C1n":"Sixteen","Sautj\u00C1n":"Seventeen","\u00C1tj\u00C1n":"Eighteen","N\u00EDtj\u00C1n":"Nineteen","Tuttugu":"Twenty"	
+				"Ellefu":"Eleven","T\u00F3lf":"Twelve","\u00DEr\u00E9tt\u00E1n":"Thirteen","Fj\u00F3rt\u00E1n":"Fourteen","Fimmt\u00E1n":"Fifteen",
+				"Sext\u00E1n":"Sixteen","Sautj\u00E1n":"Seventeen","\u00C1tj\u00E1n":"Eighteen","N\u00EDtj\u00E1n":"Nineteen","Tuttugu":"Twenty"	
 			}
 		},
 		{
 			"id" : 2,
-			"version" : 1,
+			"version" : 2,
 			"action" : "new",
 			"title" : "Just Numbers",
 			"description" : "Match between a number to its Icelandic word",
 			"pairs" : {
 				"Null":"0","Einn":"1","Tveir":"2","\u00DEr\u00EDr":"3","Fj\u00F3rir":"4","Fimm":"5",
 				"Sex":"6","Sj\u00F6":"7","\u00C1tta":"8","N\u00EDu":"9","T\u00EDu":"10",
-				"Ellefu":"11","T\u00F3lf":"12","\u00DEr\u00E9tt\u00C1n":"13","Fj\u00F3rt\u00C1n":"14","Fimmt\u00C1n":"15",
-				"Sext\u00C1n":"16","Sautj\u00C1n":"17","\u00C1tj\u00C1n":"18","N\u00EDtj\u00C1n":"19","Tuttugu":"20"
+				"Ellefu":"11","T\u00F3lf":"12","\u00DEr\u00E9tt\u00E1n":"13","Fj\u00F3rt\u00E1n":"14","Fimmt\u00E1n":"15",
+				"Sext\u00E1n":"16","Sautj\u00E1n":"17","\u00C1tj\u00E1n":"18","N\u00EDtj\u00E1n":"19","Tuttugu":"20"
 			}
 		},
 		{
 			"id" : 3,
-			"version" : 1,
+			"version" : 2,
 			"action" : "new",
 			"title" : "Food",
 			"description" : "Match between English and Icelandic food names",
@@ -40,7 +40,7 @@
 		},
 		{
 			"id" : 4,
-			"version" : 1,
+			"version" : 2,
 			"action" : "new",
 			"title" : "Places",
 			"description" : "Match between English and Icelandic place names",
@@ -52,7 +52,7 @@
 		},
 		{
 			"id" : 5,
-			"version" : 1,
+			"version" : 2,
 			"action" : "new",
 			"title" : "Directions",
 			"description" : "Match between English and Icelandic directions",
@@ -64,7 +64,7 @@
 		},
 		{
 			"id" : 6,
-			"version" : 1,
+			"version" : 2,
 			"action" : "new",
 			"title" : "Nature",
 			"description" : "",
@@ -76,7 +76,7 @@
 		},
 		{
 			"id" : 7,
-			"version" : 1,
+			"version" : 2,
 			"action" : "new",
 			"title" : "Colors",
 			"description" : "",
@@ -87,7 +87,7 @@
 		},
 		{
 			"id" : 8,
-			"version" : 1,
+			"version" : 2,
 			"action" : "new",
 			"title" : "Fruits",
 			"description" : "",
@@ -97,9 +97,9 @@
 		},
 		{
 			"id" : 9,
-			"version" : 1,
+			"version" : 3,
 			"action" : "new",
-			"title" : "people",
+			"title" : "People",
 			"description" : "",
 			"pairs" : {
 				"fa\u00F0ir":"father", "m\u00F3\u00F0ir":"mother", "sonur":"son", "d\u00F3ttir":"daughter", "br\u00F3\u00F0ir":"brother", 

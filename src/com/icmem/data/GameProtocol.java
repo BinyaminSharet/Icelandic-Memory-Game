@@ -48,13 +48,13 @@ public final class GameProtocol {
 	final public static String J_ID_GAME_VERSION = "version";
 	final public static String J_ID_GAME_TITLE = "title";
 	final public static String J_ID_GAME_DESC = "description";
-	final public static String J_ID_GAME_OPERATION = "operation";
+	final public static String J_ID_GAME_ACTION = "action";
 	final public static String J_ID_GAME_PAIRS = "pairs";
 	final public static String J_ID_GAME_PAIR_FIRST = "1";
 	final public static String J_ID_GAME_PAIR_SECOND = "2";
 	final public static String J_ID_CHUNK_NUMBER = "chunk_number";
 	final public static String J_ID_CHUNK_TOTAL = "total";
-	final public static String OPERATION_DELETE = "delete";
-	final public static String OPERATION_UPDATE = "update";
-	final public static String OPERATION_NEW = "new";
+	final public static String ACTION_DELETE = "delete";
+	final public static String ACTION_UPDATE = "update";
+	final public static String ACTION_NEW = "new";
 }
