@@ -3,109 +3,109 @@
 	[
 		{
 			"id" : 1,
-			"version" : 0,
+			"version" : 1,
 			"action" : "new",
 			"title" : "English Numbers",
 			"description" : "Match between English and Icelandic numbers",
 			"pairs" : {
-				"Null":"Zero","Einn":"One","Tveir":"Two","Þrír":"Three","Fjórir":"Four","Fimm":"Five",
-				"Sex":"Six","Sjö":"Seven","Átta":"Eight","Níu":"Nine","Tíu":"Ten",
-				"Ellefu":"Eleven","Tólf":"Twelve","Þréttán":"Thirteen","Fjórtán":"Fourteen","Fimmtán":"Fifteen",
-				"Sextán":"Sixteen","Sautján":"Seventeen","Átján":"Eighteen","Nítján":"Nineteen","Tuttugu":"Twenty"	
+				"Null":"Zero","Einn":"One","Tveir":"Two","\u00DEr\u00EDr":"Three","Fj\u00F3rir":"Four","Fimm":"Five",
+				"Sex":"Six","Sj\u00F6":"Seven","\u00C1tta":"Eight","N\u00EDu":"Nine","T\u00EDu":"Ten",
+				"Ellefu":"Eleven","T\u00F3lf":"Twelve","\u00DEr\u00E9tt\u00C1n":"Thirteen","Fj\u00F3rt\u00C1n":"Fourteen","Fimmt\u00C1n":"Fifteen",
+				"Sext\u00C1n":"Sixteen","Sautj\u00C1n":"Seventeen","\u00C1tj\u00C1n":"Eighteen","N\u00EDtj\u00C1n":"Nineteen","Tuttugu":"Twenty"	
 			}
 		},
 		{
 			"id" : 2,
-			"version" : 0,
+			"version" : 1,
 			"action" : "new",
 			"title" : "Just Numbers",
 			"description" : "Match between a number to its Icelandic word",
 			"pairs" : {
-				"Null":"0","Einn":"1","Tveir":"2","Þrír":"3","Fjórir":"4","Fimm":"5",
-				"Sex":"6","Sjö":"7","Átta":"8","Níu":"9","Tíu":"10",
-				"Ellefu":"11","Tólf":"12","Þréttán":"13","Fjórtán":"14","Fimmtán":"15",
-				"Sextán":"16","Sautján":"17","Átján":"18","Nítján":"19","Tuttugu":"20"
+				"Null":"0","Einn":"1","Tveir":"2","\u00DEr\u00EDr":"3","Fj\u00F3rir":"4","Fimm":"5",
+				"Sex":"6","Sj\u00F6":"7","\u00C1tta":"8","N\u00EDu":"9","T\u00EDu":"10",
+				"Ellefu":"11","T\u00F3lf":"12","\u00DEr\u00E9tt\u00C1n":"13","Fj\u00F3rt\u00C1n":"14","Fimmt\u00C1n":"15",
+				"Sext\u00C1n":"16","Sautj\u00C1n":"17","\u00C1tj\u00C1n":"18","N\u00EDtj\u00C1n":"19","Tuttugu":"20"
 			}
 		},
 		{
 			"id" : 3,
-			"version" : 0,
+			"version" : 1,
 			"action" : "new",
 			"title" : "Food",
 			"description" : "Match between English and Icelandic food names",
 			"pairs" : {
-				"brauð":"bread","vatn":"water","ostur":"cheese","kex":"cookie","mjólk":"milk",
-				"smjör":"butter","súkkulaði":"chocolate","kaffi":"coffee"
+				"brau\u00F0":"bread","vatn":"water","ostur":"cheese","kex":"cookie","mj\u00F3lk":"milk",
+				"smj\u00F6r":"butter","s\u00FAkkula\u00F0i":"chocolate","kaffi":"coffee"
 			}
 		},
 		{
 			"id" : 4,
-			"version" : 0,
+			"version" : 1,
 			"action" : "new",
 			"title" : "Places",
 			"description" : "Match between English and Icelandic place names",
 			"pairs" : {
-				"sundlaug":"swimming pool","bókasafn":"library","matvörubúð":"grocery store","apótek":"pharmacy","heilsugæslustöð":"clinic",
-				"veitingastaður":"restaurant","barber búð":"barber shop","skór búð":"shoe shop","banka":"bank","lögreglu":"police",
-				"sjúkrahús":"hospital"
+				"sundlaug":"swimming pool","b\u00F3kasafn":"library","matv\u00F6rub\u00FA\u00F0":"grocery store","ap\u00F3tek":"pharmacy","heilsug\u00E6slust\u00F6\u00F0":"clinic",
+				"veitingasta\u00F0ur":"restaurant","barber b\u00FA\u00F0":"barber shop","sk\u00F3r b\u00FA\u00F0":"shoe shop","banka":"bank","l\u00F6greglu":"police",
+				"sj\u00FAkrah\u00FAs":"hospital"
 			}
 		},
 		{
 			"id" : 5,
-			"version" : 0,
+			"version" : 1,
 			"action" : "new",
 			"title" : "Directions",
 			"description" : "Match between English and Icelandic directions",
 			"pairs" : {
-				"norður":"north", "austur":"east", "vestur":"west", "suður":"south", "hægri":"right", 
-				"vinstri":"left", "upp":"up", "niður":"down", "neðan":"below", "ofan":"above", 
+				"nor\u00F0ur":"north", "austur":"east", "vestur":"west", "su\u00F0ur":"south", "h\u00E6gri":"right", 
+				"vinstri":"left", "upp":"up", "ni\u00F0ur":"down", "ne\u00F0an":"below", "ofan":"above", 
 				"undir":"under", "innan":"inside", "utan":"outside"
 			}
 		},
 		{
 			"id" : 6,
-			"version" : 0,
+			"version" : 1,
 			"action" : "new",
 			"title" : "Nature",
 			"description" : "",
 			"pairs" : {
-				"foss":"waterfall","tré":"tree","fjall":"mount","hæð":"hill","blóm":"flower",
-				"sjó":"sea","ströndinni":"shore","eldfjall":"volcano","vatn":"water","dal":"valley",
-				"stein":"stone","jörð":"earth","fjörðinn":"fjord","skóg":"forest","eyja":"island"
+				"foss":"waterfall","tr\u00E9":"tree","fjall":"mount","h\u00E6\u00F0":"hill","bl\u00F3m":"flower",
+				"sj\u00F3":"sea","str\u00F6ndinni":"shore","eldfjall":"volcano","vatn":"water","dal":"valley",
+				"stein":"stone","j\u00F6r\u00F0":"earth","fj\u00F6r\u00F0inn":"fjord","sk\u00F3g":"forest","eyja":"island"
 			}
 		},
 		{
 			"id" : 7,
-			"version" : 0,
+			"version" : 1,
 			"action" : "new",
 			"title" : "Colors",
 			"description" : "",
 			"pairs" : {
-				"blár":"blue","grænn":"green","gulur":"yellow","rauður":"red","svartur":"black",
-				"hvítt":"white","brúnn":"brown","grár":"gray"
+				"bl\u00C1r":"blue","gr\u00E6nn":"green","gulur":"yellow","rau\u00F0ur":"red","svartur":"black",
+				"hv\u00EDtt":"white","br\u00FAnn":"brown","gr\u00C1r":"gray"
 			}
 		},
 		{
 			"id" : 8,
-			"version" : 0,
+			"version" : 1,
 			"action" : "new",
 			"title" : "Fruits",
 			"description" : "",
 			"pairs" : {
-				"epli":"apple","tómatar":"tomato","agúrka":"cucumber","melóna":"melon","vatnsmelóna":"watermelon"
+				"epli":"apple","t\u00F3matar":"tomato","ag\u00FArka":"cucumber","mel\u00F3na":"melon","vatnsmel\u00F3na":"watermelon"
 			}
 		},
 		{
 			"id" : 9,
-			"version" : 0,
+			"version" : 1,
 			"action" : "new",
 			"title" : "people",
 			"description" : "",
 			"pairs" : {
-				"faðir":"father", "móðir":"mother", "sonur":"son", "dóttir":"daughter", "bróðir":"brother", 
-				"systir":"sister", "kona":"wife", "maður":"husband", "barnið":"baby", "afi":"grandfather",
-				"amma":"grandmother", "frændi":"uncle", "frænka":"aunt", "frændi":"nephew", "vinur":"friend",
-				"stjóri":"boss", "kennari":"teacher", "bílstjóri":"driver", "barnabarn":"grandchild", "frænka":"niece"
+				"fa\u00F0ir":"father", "m\u00F3\u00F0ir":"mother", "sonur":"son", "d\u00F3ttir":"daughter", "br\u00F3\u00F0ir":"brother", 
+				"systir":"sister", "kona":"wife", "ma\u00F0ur":"husband", "barni\u00F0":"baby", "afi":"grandfather",
+				"amma":"grandmother", "fr\u00E6ndi":"uncle", "fr\u00E6nka":"aunt", "fr\u00E6ndi":"nephew", "vinur":"friend",
+				"stj\u00F3ri":"boss", "kennari":"teacher", "b\u00EDlstj\u00F3ri":"driver", "barnabarn":"grandchild", "fr\u00E6nka":"niece"
 			}
 		}
 	]

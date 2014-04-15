@@ -74,7 +74,7 @@ public class DataManager {
 		BufferedReader br = null;
 		try {
 			String line;
-			br = new BufferedReader(new InputStreamReader(context.getAssets().open("DefaultGames.txt")));
+			br = new BufferedReader(new InputStreamReader(context.getAssets().open("DefaultGames.txt"), "ISO-8859-1"));
 			while ((line = br.readLine()) != null) {
 				sb.append(line);
 			}
@@ -92,7 +92,6 @@ public class DataManager {
                 ex.printStackTrace();
             }
 		}
-		
 		return sb.toString();
 	}
 
