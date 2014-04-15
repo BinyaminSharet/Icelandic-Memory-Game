@@ -24,9 +24,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -40,13 +42,24 @@ public class BoardGridAdapter extends BaseAdapter {
 	private final Context context;
 	private List<MemoryButton> buttons;
 	private MemoryButton clicked = null;
-	private MemoryListener listener = new MemoryListener();
+	private final MemoryListener listener = new MemoryListener();
+	private final int button_height;
+	private final int button_width;
 
 	private ColorScheme colors= new ColorScheme();
 	Handler finishHandler;
 
-	public BoardGridAdapter(Context context) {
+	public BoardGridAdapter(Activity context) {
+		
 		this.context = context;
+		
+		// Calculate button size, done here in order to make fields final
+		Display disp = context.getWindowManager().getDefaultDisplay();
+		final int width = disp.getWidth();
+		final int height = disp.getHeight();
+		final int min = width > height ? height : width;
+		button_width = min / 4 - 10;
+		button_height = min / 4 - 10;		
 	}
 
 	private void setColors() {
@@ -94,13 +107,16 @@ public class BoardGridAdapter extends BaseAdapter {
 	public long getItemId(int position) {
 		return 0;
 	}
+	
+	
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		MemoryButton b;
 		if (convertView == null) {
 			b = buttons.get(position);
-			b.setLayoutParams(new GridView.LayoutParams(70, 70));
+			
+			b.setLayoutParams(new GridView.LayoutParams(button_width, button_height));
 			b.setPadding(2,2,2,2);
 		}
 		else {
@@ -112,15 +128,21 @@ public class BoardGridAdapter extends BaseAdapter {
 	private class MemoryButton extends Button {
 		final protected String word, matchingWord;
 		private boolean found = false;
+		
 		public MemoryButton(Context context, String word, String matchingWord) {
 			super(context);
 			this.word = word;
 			this.matchingWord = matchingWord;
 		}
-		public void matchFound() {
-			found = true;
-		}
+		
 		public boolean isFound() {
+			return found;
+		}
+		
+		public boolean checkMatch(MemoryButton other)
+		{
+			found = other.word.equalsIgnoreCase(this.matchingWord);
+			other.found = found;
 			return found;
 		}
 	}
@@ -141,9 +163,7 @@ public class BoardGridAdapter extends BaseAdapter {
 				mb.setText(mb.word);
 				mb.setBackgroundColor(colors.front_color);
 				if (clicked != null) { // another button is pressed
-					if (clicked.matchingWord.equalsIgnoreCase(mb.word)) { // this is a match
-						mb.matchFound();
-						clicked.matchFound();
+					if (clicked.checkMatch(mb)) { // this is a match
 						mb.setBackgroundColor(colors.match_color);
 						clicked.setBackgroundColor(colors.match_color);
 						clicked = null;
@@ -177,6 +197,7 @@ public class BoardGridAdapter extends BaseAdapter {
 			for (MemoryButton b : buttons) {
 				if (!b.isFound()) {
 					done = false;
+					break;
 				}
 			}
 			if (done){

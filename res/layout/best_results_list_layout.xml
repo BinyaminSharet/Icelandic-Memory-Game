@@ -8,19 +8,16 @@
     	android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:layout_alignParentLeft="true"
-		android:id="@+id/best_results_game_name"
-		android:textSize="15px"></TextView>
+		android:id="@+id/best_results_game_name"></TextView>
 	<TextView android:text="User Name" 
     	android:layout_width="wrap_content"
 		android:layout_height="wrap_content" 
 		android:layout_alignParentRight="true"
-		android:id="@+id/best_results_user_name"
-		android:textSize="15px"></TextView>
+		android:id="@+id/best_results_user_name"></TextView>
 	<TextView android:text="Time" 
     	android:layout_width="fill_parent"
 		android:layout_height="wrap_content" 
 		android:layout_alignParentLeft="true"
 		android:layout_below="@id/best_results_game_name"
-		android:id="@+id/best_results_time"
-		android:textSize="15px"></TextView>
+		android:id="@+id/best_results_time"></TextView>
 </RelativeLayout>
